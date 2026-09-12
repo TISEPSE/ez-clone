@@ -1,0 +1,199 @@
+{
+  "name": "quick-clone",
+  "displayName": "Quick Clone",
+  "description": "Cloner un dépôt Git depuis la barre latérale et l'ouvrir immédiatement, dans une nouvelle fenêtre ou dans le dossier de votre choix.",
+  "version": "0.7.0",
+  "publisher": "local",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/local/quick-clone.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "Other"
+  ],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onUri"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "quickClone",
+          "title": "Quick Clone",
+          "icon": "resources/quick-clone.svg"
+        }
+      ]
+    },
+    "views": {
+      "quickClone": [
+        {
+          "id": "quickClone.form",
+          "name": "Cloner un dépôt",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "quickClone.clone",
+        "title": "Cloner un dépôt",
+        "category": "Quick Clone",
+        "icon": "$(repo-clone)"
+      },
+      {
+        "command": "quickClone.clonePalette",
+        "title": "Cloner un dépôt (au clavier, sans la barre latérale)",
+        "category": "Quick Clone"
+      },
+      {
+        "command": "quickClone.githubSignIn",
+        "title": "Se connecter à GitHub",
+        "category": "Quick Clone",
+        "icon": "$(sign-in)"
+      },
+      {
+        "command": "quickClone.openPath",
+        "title": "Ouvrir un dossier cloné",
+        "category": "Quick Clone"
+      },
+      {
+        "command": "quickClone.openRecent",
+        "title": "Ouvrir un projet cloné",
+        "category": "Quick Clone",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "quickClone.checkUpdates",
+        "title": "Vérifier les mises à jour des dépôts clonés",
+        "category": "Quick Clone",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "quickClone.updateRepo",
+        "title": "Mettre à jour un dépôt cloné",
+        "category": "Quick Clone"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "quickClone.openPath",
+          "when": "false"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "quickClone.clone",
+        "key": "ctrl+alt+shift+c",
+        "mac": "cmd+alt+shift+c"
+      }
+    ],
+    "configuration": {
+      "title": "Quick Clone",
+      "properties": {
+        "quickClone.defaultRoot": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Dossier racine proposé en premier dans la liste des emplacements (ex. `D:/Dev`). Le caractère `~` est accepté."
+        },
+        "quickClone.openBehavior": {
+          "type": "string",
+          "enum": [
+            "ask",
+            "newWindow",
+            "currentWindow",
+            "addToWorkspace"
+          ],
+          "enumDescriptions": [
+            "Demander à chaque clone",
+            "Toujours ouvrir une nouvelle fenêtre",
+            "Toujours réutiliser la fenêtre courante",
+            "Ajouter au workspace courant"
+          ],
+          "default": "ask",
+          "markdownDescription": "Comportement de la commande clavier. Le formulaire de la barre latérale a son propre menu déroulant."
+        },
+        "quickClone.depth": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "description": "Profondeur du clone (--depth). 0 = clone complet."
+        },
+        "quickClone.recurseSubmodules": {
+          "type": "boolean",
+          "default": false,
+          "description": "Cloner aussi les sous-modules (--recurse-submodules)."
+        },
+        "quickClone.shorthandHost": {
+          "type": "string",
+          "default": "https://github.com/",
+          "description": "Hôte utilisé pour développer les raccourcis du type « user/repo »."
+        },
+        "quickClone.postCloneSetup": {
+          "type": "string",
+          "enum": [
+            "ask",
+            "always",
+            "never"
+          ],
+          "default": "ask",
+          "description": "Proposer d'installer les dépendances détectées (npm, pnpm, cargo, pip…) après ouverture du projet."
+        },
+        "quickClone.github.protocol": {
+          "type": "string",
+          "enum": [
+            "https",
+            "ssh"
+          ],
+          "default": "https",
+          "description": "Protocole utilisé pour cloner un dépôt choisi dans la liste GitHub."
+        },
+        "quickClone.github.hideArchived": {
+          "type": "boolean",
+          "default": true,
+          "description": "Masquer les dépôts archivés dans la liste GitHub."
+        },
+        "quickClone.autoCheckUpdates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Vérifier en arrière-plan si les dépôts clonés ont de nouveaux commits en amont (git fetch). Aucune modification n'est appliquée sans confirmation."
+        },
+        "quickClone.updateCheckInterval": {
+          "type": "number",
+          "default": 30,
+          "minimum": 1,
+          "description": "Délai minimum entre deux vérifications automatiques, en minutes."
+        },
+        "quickClone.maxRecentDestinations": {
+          "type": "number",
+          "default": 8,
+          "minimum": 0,
+          "description": "Nombre d'emplacements mémorisés dans la liste déroulante."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --allow-missing-repository --skip-license"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.5.4"
+  }
+}

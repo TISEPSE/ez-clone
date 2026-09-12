@@ -1,0 +1,342 @@
+/* Tout est piloté par les variables de thème VS Code : la vue suit le thème actif. */
+body {
+  padding: 12px 14px 16px;
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  color: var(--vscode-foreground);
+}
+
+.field {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.field > span {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vscode-descriptionForeground);
+}
+
+.muted {
+  color: var(--vscode-descriptionForeground);
+}
+
+.muted.error {
+  color: var(--vscode-errorForeground);
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.row > input,
+.row > select {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+input[type='text'],
+select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 7px;
+  color: var(--vscode-input-foreground);
+  background: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border, transparent);
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input[type='text']::placeholder {
+  color: var(--vscode-input-placeholderForeground);
+}
+
+input[type='text']:focus,
+select:focus,
+button:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: inherit;
+  white-space: nowrap;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.icon-btn,
+.secondary {
+  color: var(--vscode-button-secondaryForeground);
+  background: var(--vscode-button-secondaryBackground);
+}
+
+.icon-btn:hover:not(:disabled),
+.secondary:hover:not(:disabled) {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+
+.primary {
+  display: block;
+  width: 100%;
+  padding: 7px;
+  margin-top: 4px;
+  font-weight: 600;
+  color: var(--vscode-button-foreground);
+  background: var(--vscode-button-background);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--vscode-button-hoverBackground);
+}
+
+.link-btn {
+  padding: 0;
+  background: none;
+  color: var(--vscode-textLink-foreground);
+  font-size: 11px;
+}
+
+.link-btn:hover:not(:disabled) {
+  color: var(--vscode-textLink-activeForeground);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------ GitHub */
+
+.gh-box {
+  margin-bottom: 14px;
+  padding: 10px;
+  border: 1px solid var(--vscode-panel-border, var(--vscode-input-border, transparent));
+  border-radius: 3px;
+  text-align: center;
+}
+
+.gh-box small {
+  display: block;
+  margin-top: 6px;
+  color: var(--vscode-descriptionForeground);
+}
+
+.gh-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.repos {
+  max-height: 210px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  border: 1px solid var(--vscode-panel-border, var(--vscode-input-border, transparent));
+  border-radius: 3px;
+}
+
+.repo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.repo:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+
+.repo.selected {
+  color: var(--vscode-list-activeSelectionForeground);
+  background: var(--vscode-list-activeSelectionBackground);
+}
+
+.repo-main {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+}
+
+.repo-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repo-owner {
+  flex: 0 0 auto;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.badge {
+  flex: 0 0 auto;
+  padding: 0 4px;
+  border-radius: 8px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--vscode-badge-background);
+  color: var(--vscode-badge-foreground);
+}
+
+#ghNote {
+  margin: 0 0 12px;
+  font-size: 11px;
+}
+
+/* ------------------------------------------------------ sections dépliables */
+
+details {
+  margin-bottom: 12px;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--vscode-descriptionForeground);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* --------------------------------------------------------------- feedback */
+
+.bar {
+  height: 3px;
+  margin-top: 12px;
+  overflow: hidden;
+  background: var(--vscode-editorWidget-background);
+  border-radius: 2px;
+}
+
+.bar > div {
+  height: 100%;
+  width: 0;
+  background: var(--vscode-progressBar-background);
+  transition: width 0.15s linear;
+}
+
+.status {
+  margin: 10px 0 0;
+  word-break: break-word;
+}
+
+.status.ok {
+  color: var(--vscode-testing-iconPassed, var(--vscode-charts-green));
+}
+
+.status.error {
+  color: var(--vscode-errorForeground);
+}
+
+.status.info {
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ---------------------------------------------------------------- récents */
+
+.recents-box {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--vscode-panel-border, var(--vscode-input-border, transparent));
+}
+
+.recents {
+  margin-top: 6px;
+}
+
+.recent {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.recent:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+
+.recent-open {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 3px 6px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: none;
+  color: var(--vscode-foreground);
+}
+
+.recent-remove,
+.recent-here {
+  flex: 0 0 auto;
+  padding: 3px 6px;
+  visibility: hidden;
+  background: none;
+  color: var(--vscode-descriptionForeground);
+}
+
+.recent:hover .recent-remove,
+.recent:hover .recent-here {
+  visibility: visible;
+}
+
+.recent-remove:hover,
+.recent-here:hover {
+  color: var(--vscode-foreground);
+}
+
+.recents-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.recents-head .accent {
+  color: var(--vscode-textLink-foreground);
+}
+
+.recent-update {
+  flex: 0 0 auto;
+  padding: 1px 7px;
+  border-radius: 9px;
+  font-size: 11px;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+
+.recent-update:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+
+.recent-state {
+  flex: 0 0 auto;
+  padding: 0 4px;
+  font-size: 11px;
+  color: var(--vscode-descriptionForeground);
+}
+
+.recent-state.error,
+.recent-state.missing {
+  color: var(--vscode-errorForeground);
+}
