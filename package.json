@@ -20,11 +20,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TISEPSE/quick-clone.git"
+    "url": "https://github.com/TISEPSE/ez-clone.git"
   },
-  "homepage": "https://github.com/TISEPSE/quick-clone#readme",
+  "homepage": "https://github.com/TISEPSE/ez-clone#readme",
   "bugs": {
-    "url": "https://github.com/TISEPSE/quick-clone/issues"
+    "url": "https://github.com/TISEPSE/ez-clone/issues"
   },
   "engines": {
     "vscode": "^1.85.0"

@@ -128,7 +128,7 @@ npm run package        # produit le .vsix
 
 `F5` lance une fenêtre « Extension Development Host » avec l'extension chargée.
 
-Code source et signalement de bugs : [github.com/TISEPSE/quick-clone](https://github.com/TISEPSE/quick-clone)
+Code source et signalement de bugs : [github.com/TISEPSE/ez-clone](https://github.com/TISEPSE/ez-clone)
 
 ## Licence
 
