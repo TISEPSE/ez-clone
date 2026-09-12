@@ -222,7 +222,7 @@ export class SyncManager implements vscode.Disposable {
   /** Démarre la surveillance : au lancement, au retour de focus, puis par intervalle. */
   start(context: vscode.ExtensionContext): void {
     const enabled = () =>
-      vscode.workspace.getConfiguration('quickClone').get<boolean>('autoCheckUpdates', true);
+      vscode.workspace.getConfiguration('ezClone').get<boolean>('autoCheckUpdates', true);
 
     if (enabled()) {
       void this.checkAll();
@@ -245,7 +245,7 @@ export class SyncManager implements vscode.Disposable {
 
   private intervalMs(): number {
     const minutes = vscode.workspace
-      .getConfiguration('quickClone')
+      .getConfiguration('ezClone')
       .get<number>('updateCheckInterval', 30);
     return Math.max(1, minutes) * 60000;
   }
@@ -377,7 +377,7 @@ export class SyncManager implements vscode.Disposable {
 
     void vscode.window.showInformationMessage(label, review).then((answer) => {
       if (answer === review) {
-        void vscode.commands.executeCommand('quickClone.form.focus');
+        void vscode.commands.executeCommand('ezClone.form.focus');
       }
     });
   }

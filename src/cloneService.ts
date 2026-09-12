@@ -35,7 +35,7 @@ export async function performClone(
   req: CloneRequest,
   report: ProgressReporter = () => undefined
 ): Promise<CloneOutcome> {
-  const cfg = vscode.workspace.getConfiguration('quickClone');
+  const cfg = vscode.workspace.getConfiguration('ezClone');
   const url = normalizeUrl(req.url, cfg.get<string>('shorthandHost', 'https://github.com/'));
   const parentDir = expandHome(req.parentDir.trim());
 
@@ -179,7 +179,7 @@ export function expandHome(p: string): string {
 
 /** Emplacements proposés dans le formulaire, sans doublon, ordre = pertinence. */
 export function suggestedDestinations(store: Store): string[] {
-  const cfg = vscode.workspace.getConfiguration('quickClone');
+  const cfg = vscode.workspace.getConfiguration('ezClone');
   const out: string[] = [];
   const seen = new Set<string>();
   const push = (dir?: string) => {

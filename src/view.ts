@@ -26,7 +26,7 @@ type Inbound =
 
 /** Panneau unique : dépôts GitHub, formulaire de clone et historique. */
 export class CloneFormProvider implements vscode.WebviewViewProvider {
-  public static readonly viewId = 'quickClone.form';
+  public static readonly viewId = 'ezClone.form';
 
   private view?: vscode.WebviewView;
   private busy = false;
@@ -111,7 +111,7 @@ export class CloneFormProvider implements vscode.WebviewViewProvider {
       }
 
       case 'openRecent':
-        await vscode.commands.executeCommand('quickClone.openPath', msg.path, msg.behavior);
+        await vscode.commands.executeCommand('ezClone.openPath', msg.path, msg.behavior);
         return;
 
       case 'removeRecent':
@@ -246,10 +246,10 @@ export class CloneFormProvider implements vscode.WebviewViewProvider {
 
   private sendRepos(): void {
     const protocol = vscode.workspace
-      .getConfiguration('quickClone')
+      .getConfiguration('ezClone')
       .get<string>('github.protocol', 'https');
     const hideArchived = vscode.workspace
-      .getConfiguration('quickClone')
+      .getConfiguration('ezClone')
       .get<boolean>('github.hideArchived', true);
 
     const cached = this.github.cached();
@@ -295,7 +295,7 @@ export class CloneFormProvider implements vscode.WebviewViewProvider {
 <meta http-equiv="Content-Security-Policy" content="${csp}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${asset('view.css')}" rel="stylesheet">
-<title>Quick Clone</title>
+<title>EZ Clone</title>
 </head>
 <body>
   <div class="field">

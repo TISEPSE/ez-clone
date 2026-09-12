@@ -1,6 +1,6 @@
 {
-  "name": "quick-clone",
-  "displayName": "Quick Clone for Git",
+  "name": "ez-clone",
+  "displayName": "EZ Clone",
   "description": "Cloner un dépôt Git depuis la barre latérale et l'ouvrir immédiatement, dans une nouvelle fenêtre ou dans le dossier de votre choix.",
   "version": "0.7.1",
   "icon": "images/icon.png",
@@ -46,16 +46,16 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "quickClone",
-          "title": "Quick Clone",
-          "icon": "resources/quick-clone.svg"
+          "id": "ezClone",
+          "title": "EZ Clone",
+          "icon": "resources/ez-clone.svg"
         }
       ]
     },
     "views": {
-      "quickClone": [
+      "ezClone": [
         {
-          "id": "quickClone.form",
+          "id": "ezClone.form",
           "name": "Cloner un dépôt",
           "type": "webview"
         }
@@ -63,69 +63,69 @@
     },
     "commands": [
       {
-        "command": "quickClone.clone",
+        "command": "ezClone.clone",
         "title": "Cloner un dépôt",
-        "category": "Quick Clone",
+        "category": "EZ Clone",
         "icon": "$(repo-clone)"
       },
       {
-        "command": "quickClone.clonePalette",
+        "command": "ezClone.clonePalette",
         "title": "Cloner un dépôt (au clavier, sans la barre latérale)",
-        "category": "Quick Clone"
+        "category": "EZ Clone"
       },
       {
-        "command": "quickClone.githubSignIn",
+        "command": "ezClone.githubSignIn",
         "title": "Se connecter à GitHub",
-        "category": "Quick Clone",
+        "category": "EZ Clone",
         "icon": "$(sign-in)"
       },
       {
-        "command": "quickClone.openPath",
+        "command": "ezClone.openPath",
         "title": "Ouvrir un dossier cloné",
-        "category": "Quick Clone"
+        "category": "EZ Clone"
       },
       {
-        "command": "quickClone.openRecent",
+        "command": "ezClone.openRecent",
         "title": "Ouvrir un projet cloné",
-        "category": "Quick Clone",
+        "category": "EZ Clone",
         "icon": "$(folder-opened)"
       },
       {
-        "command": "quickClone.checkUpdates",
+        "command": "ezClone.checkUpdates",
         "title": "Vérifier les mises à jour des dépôts clonés",
-        "category": "Quick Clone",
+        "category": "EZ Clone",
         "icon": "$(sync)"
       },
       {
-        "command": "quickClone.updateRepo",
+        "command": "ezClone.updateRepo",
         "title": "Mettre à jour un dépôt cloné",
-        "category": "Quick Clone"
+        "category": "EZ Clone"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "quickClone.openPath",
+          "command": "ezClone.openPath",
           "when": "false"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "quickClone.clone",
+        "command": "ezClone.clone",
         "key": "ctrl+alt+shift+c",
         "mac": "cmd+alt+shift+c"
       }
     ],
     "configuration": {
-      "title": "Quick Clone",
+      "title": "EZ Clone",
       "properties": {
-        "quickClone.defaultRoot": {
+        "ezClone.defaultRoot": {
           "type": "string",
           "default": "",
           "markdownDescription": "Dossier racine proposé en premier dans la liste des emplacements (ex. `D:/Dev`). Le caractère `~` est accepté."
         },
-        "quickClone.openBehavior": {
+        "ezClone.openBehavior": {
           "type": "string",
           "enum": [
             "ask",
@@ -142,23 +142,23 @@
           "default": "ask",
           "markdownDescription": "Comportement de la commande clavier. Le formulaire de la barre latérale a son propre menu déroulant."
         },
-        "quickClone.depth": {
+        "ezClone.depth": {
           "type": "number",
           "default": 0,
           "minimum": 0,
           "description": "Profondeur du clone (--depth). 0 = clone complet."
         },
-        "quickClone.recurseSubmodules": {
+        "ezClone.recurseSubmodules": {
           "type": "boolean",
           "default": false,
           "description": "Cloner aussi les sous-modules (--recurse-submodules)."
         },
-        "quickClone.shorthandHost": {
+        "ezClone.shorthandHost": {
           "type": "string",
           "default": "https://github.com/",
           "description": "Hôte utilisé pour développer les raccourcis du type « user/repo »."
         },
-        "quickClone.postCloneSetup": {
+        "ezClone.postCloneSetup": {
           "type": "string",
           "enum": [
             "ask",
@@ -168,7 +168,7 @@
           "default": "ask",
           "description": "Proposer d'installer les dépendances détectées (npm, pnpm, cargo, pip…) après ouverture du projet."
         },
-        "quickClone.github.protocol": {
+        "ezClone.github.protocol": {
           "type": "string",
           "enum": [
             "https",
@@ -177,23 +177,23 @@
           "default": "https",
           "description": "Protocole utilisé pour cloner un dépôt choisi dans la liste GitHub."
         },
-        "quickClone.github.hideArchived": {
+        "ezClone.github.hideArchived": {
           "type": "boolean",
           "default": true,
           "description": "Masquer les dépôts archivés dans la liste GitHub."
         },
-        "quickClone.autoCheckUpdates": {
+        "ezClone.autoCheckUpdates": {
           "type": "boolean",
           "default": true,
           "description": "Vérifier en arrière-plan si les dépôts clonés ont de nouveaux commits en amont (git fetch). Aucune modification n'est appliquée sans confirmation."
         },
-        "quickClone.updateCheckInterval": {
+        "ezClone.updateCheckInterval": {
           "type": "number",
           "default": 30,
           "minimum": 1,
           "description": "Délai minimum entre deux vérifications automatiques, en minutes."
         },
-        "quickClone.maxRecentDestinations": {
+        "ezClone.maxRecentDestinations": {
           "type": "number",
           "default": 8,
           "minimum": 0,

@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const PENDING_KEY = 'quickClone.pendingSetup';
+const PENDING_KEY = 'ezClone.pendingSetup';
 
 interface PendingSetup {
   folder: string;
@@ -68,7 +68,7 @@ export async function consumePendingSetup(context: vscode.ExtensionContext): Pro
     pending.filter((p) => p !== hit)
   );
 
-  const mode = vscode.workspace.getConfiguration('quickClone').get<string>('postCloneSetup', 'ask');
+  const mode = vscode.workspace.getConfiguration('ezClone').get<string>('postCloneSetup', 'ask');
   if (mode === 'never') {
     return;
   }
@@ -82,7 +82,7 @@ export async function consumePendingSetup(context: vscode.ExtensionContext): Pro
       return;
     }
   }
-  const terminal = vscode.window.createTerminal({ name: 'Quick Clone: setup', cwd: hit.folder });
+  const terminal = vscode.window.createTerminal({ name: 'EZ Clone: setup', cwd: hit.folder });
   terminal.show();
   terminal.sendText(hit.command);
 }

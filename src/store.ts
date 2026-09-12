@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
-const DESTS_KEY = 'quickClone.recentDestinations';
-const CLONES_KEY = 'quickClone.recentClones';
+const DESTS_KEY = 'ezClone.recentDestinations';
+const CLONES_KEY = 'ezClone.recentClones';
 
 export interface RecentClone {
   name: string;
@@ -23,7 +23,7 @@ export class Store {
 
   private get max(): number {
     return vscode.workspace
-      .getConfiguration('quickClone')
+      .getConfiguration('ezClone')
       .get<number>('maxRecentDestinations', 8);
   }
 

@@ -29,16 +29,16 @@ export function activate(context: vscode.ExtensionContext): void {
       }
     }),
 
-    register('quickClone.clone', () => form.focusUrl()),
-    register('quickClone.clonePalette', () => paletteFlow(context, store)),
-    register('quickClone.githubSignIn', () => github.signIn()),
+    register('ezClone.clone', () => form.focusUrl()),
+    register('ezClone.clonePalette', () => paletteFlow(context, store)),
+    register('ezClone.githubSignIn', () => github.signIn()),
 
     // Utilisée par le panneau pour rouvrir un clone récent.
-    register('quickClone.openPath', async (target: string, behavior: OpenBehavior) => {
+    register('ezClone.openPath', async (target: string, behavior: OpenBehavior) => {
       if (!fs.existsSync(target)) {
         const forget = 'Retirer de la liste';
         const answer = await vscode.window.showWarningMessage(
-          `Quick Clone : ${target} est introuvable.`,
+          `EZ Clone : ${target} est introuvable.`,
           forget
         );
         if (answer === forget) {
@@ -50,16 +50,16 @@ export function activate(context: vscode.ExtensionContext): void {
     }),
 
     // Parcours de l'historique sans la barre latérale.
-    register('quickClone.openRecent', () => openRecentFlow(store)),
+    register('ezClone.openRecent', () => openRecentFlow(store)),
 
-    register('quickClone.checkUpdates', async () => {
+    register('ezClone.checkUpdates', async () => {
       const statuses = await sync.checkAll({ silent: true });
       const pending = statuses.filter((s) => s.state === 'behind');
       if (pending.length === 0) {
         vscode.window.showInformationMessage(
           statuses.length === 0
-            ? 'Quick Clone : aucun clone connu à vérifier.'
-            : 'Quick Clone : tous les dépôts sont à jour.'
+            ? 'EZ Clone : aucun clone connu à vérifier.'
+            : 'EZ Clone : tous les dépôts sont à jour.'
         );
         return;
       }
@@ -67,17 +67,17 @@ export function activate(context: vscode.ExtensionContext): void {
     }),
 
     // Déclenchée par le bouton « Mettre à jour » du panneau.
-    register('quickClone.updateRepo', async (target: string) => {
+    register('ezClone.updateRepo', async (target: string) => {
       const outcome = await sync.update(target);
       if (!outcome.ok) {
-        vscode.window.showWarningMessage(`Quick Clone : ${outcome.message}`);
+        vscode.window.showWarningMessage(`EZ Clone : ${outcome.message}`);
       } else {
-        vscode.window.showInformationMessage(`Quick Clone : ${outcome.message}`);
+        vscode.window.showInformationMessage(`EZ Clone : ${outcome.message}`);
       }
     }),
 
     vscode.window.registerUriHandler({
-      // vscode://tisepse.quick-clone/clone?url=https://github.com/user/repo.git
+      // vscode://tisepse.ez-clone/clone?url=https://github.com/user/repo.git
       handleUri: (uri) => {
         const url = new URLSearchParams(uri.query).get('url');
         if (uri.path === '/clone' && url) {
@@ -100,7 +100,7 @@ async function updateFlow(sync: SyncManager, paths: string[]): Promise<void> {
   if (paths.length === 1) {
     const single = await sync.update(paths[0]);
     vscode.window[single.ok ? 'showInformationMessage' : 'showWarningMessage'](
-      `Quick Clone : ${single.message}`
+      `EZ Clone : ${single.message}`
     );
     return;
   }
@@ -128,10 +128,10 @@ async function updateFlow(sync: SyncManager, paths: string[]): Promise<void> {
   }
   const failed = results.filter((r) => !r.ok);
   if (failed.length === 0) {
-    vscode.window.showInformationMessage(`Quick Clone : ${results.length} dépôts mis à jour.`);
+    vscode.window.showInformationMessage(`EZ Clone : ${results.length} dépôts mis à jour.`);
   } else {
     vscode.window.showWarningMessage(
-      `Quick Clone : ${results.length - failed.length} mis à jour, ${failed.length} en échec (${failed[0].message})`
+      `EZ Clone : ${results.length - failed.length} mis à jour, ${failed.length} en échec (${failed[0].message})`
     );
   }
 }
@@ -146,7 +146,7 @@ async function paletteFlow(context: vscode.ExtensionContext, store: Store): Prom
   const prefill = looksLikeRepoUrl(clipboard) ? clipboard : '';
 
   const url = await vscode.window.showInputBox({
-    title: 'Quick Clone',
+    title: 'EZ Clone',
     prompt: 'URL du dépôt (ou raccourci "user/repo")',
     placeHolder: 'https://github.com/user/repo.git',
     value: prefill,
@@ -167,7 +167,7 @@ async function paletteFlow(context: vscode.ExtensionContext, store: Store): Prom
   };
   const picked = await vscode.window.showQuickPick(
     [...known.map((dir) => ({ label: `$(folder) ${dir}`, dir })), browse],
-    { title: 'Quick Clone — où cloner ?', ignoreFocusOut: true }
+    { title: 'EZ Clone — où cloner ?', ignoreFocusOut: true }
   );
   if (!picked) {
     return;
@@ -194,7 +194,7 @@ async function paletteFlow(context: vscode.ExtensionContext, store: Store): Prom
 
   const outcome = await performClone(context, store, { url, parentDir, openBehavior: behavior });
   if (outcome.status === 'error') {
-    vscode.window.showErrorMessage(`Quick Clone : ${outcome.message}`);
+    vscode.window.showErrorMessage(`EZ Clone : ${outcome.message}`);
   }
 }
 
@@ -202,7 +202,7 @@ async function paletteFlow(context: vscode.ExtensionContext, store: Store): Prom
 async function openRecentFlow(store: Store): Promise<void> {
   const clones = store.clones();
   if (clones.length === 0) {
-    vscode.window.showInformationMessage('Quick Clone : aucun projet cloné dans l’historique.');
+    vscode.window.showInformationMessage('EZ Clone : aucun projet cloné dans l’historique.');
     return;
   }
 
@@ -213,7 +213,7 @@ async function openRecentFlow(store: Store): Promise<void> {
       detail: c.path,
       path: c.path
     })),
-    { title: 'Quick Clone — ouvrir un projet cloné', matchOnDetail: true, ignoreFocusOut: true }
+    { title: 'EZ Clone — ouvrir un projet cloné', matchOnDetail: true, ignoreFocusOut: true }
   );
   if (!picked) {
     return;
@@ -223,7 +223,7 @@ async function openRecentFlow(store: Store): Promise<void> {
   if (!behavior) {
     return;
   }
-  await vscode.commands.executeCommand('quickClone.openPath', picked.path, behavior);
+  await vscode.commands.executeCommand('ezClone.openPath', picked.path, behavior);
 }
 
 async function pickBehavior(title?: string): Promise<OpenBehavior | undefined> {
@@ -231,7 +231,7 @@ async function pickBehavior(title?: string): Promise<OpenBehavior | undefined> {
   // existant demande toujours, sinon le choix serait invisible.
   if (!title) {
     const configured = vscode.workspace
-      .getConfiguration('quickClone')
+      .getConfiguration('ezClone')
       .get<string>('openBehavior', 'ask');
     if (configured !== 'ask') {
       return configured as OpenBehavior;

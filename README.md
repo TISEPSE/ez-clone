@@ -1,10 +1,10 @@
-# Quick Clone for Git
+# EZ Clone
 
 **Clone un dépôt Git depuis la barre latérale de VS Code et ouvre-le tout de suite.**
 Tes dépôts GitHub sont listés et filtrables, le dossier de destination est mémorisé,
-et Quick Clone te prévient quand un projet cloné a de nouveaux commits.
+et EZ Clone te prévient quand un projet cloné a de nouveaux commits.
 
-![Quick Clone dans VS Code](images/screenshot-dark.png)
+![EZ Clone dans VS Code](images/screenshot-dark.png)
 
 ## Fonctionnalités
 
@@ -29,12 +29,12 @@ et Quick Clone te prévient quand un projet cloné a de nouveaux commits.
 
 ## Démarrage rapide
 
-1. Clique sur l'icône **Quick Clone** dans la barre d'activité
+1. Clique sur l'icône **EZ Clone** dans la barre d'activité
    (ou `Ctrl+Alt+Shift+C`).
 2. Clique sur **Se connecter à GitHub**, ou colle directement une URL.
 3. Choisis un dépôt, vérifie l'emplacement, puis **Cloner**.
 
-<img src="images/panel-light.png" alt="Le panneau Quick Clone en thème clair" width="380">
+<img src="images/panel-light.png" alt="Le panneau EZ Clone en thème clair" width="380">
 
 ## Le panneau
 
@@ -57,22 +57,22 @@ La croix retire l'entrée de la liste, sans toucher au disque.
 ## Raccourci et commandes
 
 - `Ctrl+Alt+Shift+C` (`Cmd+Alt+Shift+C` sur macOS) ouvre le panneau, curseur dans le champ URL.
-- `Quick Clone: Cloner un dépôt (au clavier, sans la barre latérale)` : parcours
+- `EZ Clone: Cloner un dépôt (au clavier, sans la barre latérale)` : parcours
   100 % clavier.
-- `Quick Clone: Ouvrir un projet cloné` : rouvre un projet de l'historique.
-- `Quick Clone: Vérifier les mises à jour des dépôts clonés` : force une
+- `EZ Clone: Ouvrir un projet cloné` : rouvre un projet de l'historique.
+- `EZ Clone: Vérifier les mises à jour des dépôts clonés` : force une
   vérification et propose de tout mettre à jour.
 
 ## Mise à jour des dépôts clonés
 
 - Au démarrage, au retour sur la fenêtre, puis au plus une fois toutes les
-  `quickClone.updateCheckInterval` minutes, un `git fetch --prune` silencieux est
+  `ezClone.updateCheckInterval` minutes, un `git fetch --prune` silencieux est
   lancé sur les clones récents.
 - La mise à jour est un `git merge --ff-only @{u}` : jamais de fusion, jamais de
   rebase, jamais de perte de travail local.
 - Un dépôt est marqué **bloqué** et laissé tel quel s'il a des commits non poussés,
   des modifications non commitées, un HEAD détaché ou aucune branche de suivi.
-- `quickClone.autoCheckUpdates: false` désactive les vérifications automatiques.
+- `ezClone.autoCheckUpdates: false` désactive les vérifications automatiques.
 
 L'historique des clones suit ton compte via Settings Sync. Seuls les *commits*
 voyagent : le travail non commité et les fichiers ignorés (`.env`, `node_modules`)
@@ -89,17 +89,17 @@ révocable depuis le menu **Comptes**. Les autorisations demandées sont `repo`
 
 | Clé | Défaut | Rôle |
 |---|---|---|
-| `quickClone.defaultRoot` | `""` | Emplacement en tête de liste (`~` accepté) |
-| `quickClone.openBehavior` | `ask` | Comportement de la commande clavier |
-| `quickClone.depth` | `0` | `--depth` appliqué aux clones ; `0` = clone complet |
-| `quickClone.recurseSubmodules` | `false` | `--recurse-submodules` appliqué aux clones |
-| `quickClone.shorthandHost` | `https://github.com/` | Hôte pour les raccourcis `user/repo` |
-| `quickClone.postCloneSetup` | `ask` | Installation des dépendances : `ask` / `always` / `never` |
-| `quickClone.github.protocol` | `https` | `https` ou `ssh` pour les clones depuis la liste GitHub |
-| `quickClone.github.hideArchived` | `true` | Masquer les dépôts archivés |
-| `quickClone.autoCheckUpdates` | `true` | Vérifier en arrière-plan les nouveaux commits |
-| `quickClone.updateCheckInterval` | `30` | Délai minimum entre deux vérifications, en minutes |
-| `quickClone.maxRecentDestinations` | `8` | Taille de la liste des emplacements |
+| `ezClone.defaultRoot` | `""` | Emplacement en tête de liste (`~` accepté) |
+| `ezClone.openBehavior` | `ask` | Comportement de la commande clavier |
+| `ezClone.depth` | `0` | `--depth` appliqué aux clones ; `0` = clone complet |
+| `ezClone.recurseSubmodules` | `false` | `--recurse-submodules` appliqué aux clones |
+| `ezClone.shorthandHost` | `https://github.com/` | Hôte pour les raccourcis `user/repo` |
+| `ezClone.postCloneSetup` | `ask` | Installation des dépendances : `ask` / `always` / `never` |
+| `ezClone.github.protocol` | `https` | `https` ou `ssh` pour les clones depuis la liste GitHub |
+| `ezClone.github.hideArchived` | `true` | Masquer les dépôts archivés |
+| `ezClone.autoCheckUpdates` | `true` | Vérifier en arrière-plan les nouveaux commits |
+| `ezClone.updateCheckInterval` | `30` | Délai minimum entre deux vérifications, en minutes |
+| `ezClone.maxRecentDestinations` | `8` | Taille de la liste des emplacements |
 
 ## Lien externe
 
@@ -107,13 +107,13 @@ L'extension enregistre un gestionnaire d'URI qui ouvre le panneau avec l'URL
 pré-remplie :
 
 ```
-vscode://tisepse.quick-clone/clone?url=https://github.com/user/repo.git
+vscode://tisepse.ez-clone/clone?url=https://github.com/user/repo.git
 ```
 
 ## Bon à savoir
 
 - Le binaire git vient de l'extension Git intégrée : ton réglage `git.path` est respecté.
-- Si le dossier cible existe déjà, Quick Clone propose de l'ouvrir ou de renommer.
+- Si le dossier cible existe déjà, EZ Clone propose de l'ouvrir ou de renommer.
 - Desktop uniquement : pas de support vscode.dev / github.dev.
 - Un dépôt privé nécessite un credential helper git configuré ; sinon le clone
   échoue avec un message explicite plutôt que de rester bloqué.

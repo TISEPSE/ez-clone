@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 const PROVIDER = 'github';
 /** `repo` couvre les dépôts privés ; sans lui on ne verrait que les publics. */
 const SCOPES = ['repo', 'read:org'];
-const CACHE_KEY = 'quickClone.githubRepos';
+const CACHE_KEY = 'ezClone.githubRepos';
 const MAX_PAGES = 5;
 
 export interface Repo {
@@ -60,7 +60,7 @@ export class GitHubRepos {
     return this.signedIn;
   }
 
-  /** Met à jour `quickClone.signedIn`, qui pilote l'affichage des vues. */
+  /** Met à jour `ezClone.signedIn`, qui pilote l'affichage des vues. */
   async syncSignInState(): Promise<void> {
     let session: vscode.AuthenticationSession | undefined;
     try {
@@ -69,7 +69,7 @@ export class GitHubRepos {
       session = undefined;
     }
     this.signedIn = !!session;
-    await vscode.commands.executeCommand('setContext', 'quickClone.signedIn', this.signedIn);
+    await vscode.commands.executeCommand('setContext', 'ezClone.signedIn', this.signedIn);
     this.emitter.fire();
   }
 
@@ -132,7 +132,7 @@ export class GitHubRepos {
           Authorization: `Bearer ${session.accessToken}`,
           Accept: 'application/vnd.github+json',
           'X-GitHub-Api-Version': '2022-11-28',
-          'User-Agent': 'vscode-quick-clone'
+          'User-Agent': 'vscode-ez-clone'
         }
       });
 
