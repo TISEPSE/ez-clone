@@ -77,7 +77,7 @@ export function activate(context: vscode.ExtensionContext): void {
     }),
 
     vscode.window.registerUriHandler({
-      // vscode://local.quick-clone/clone?url=https://github.com/user/repo.git
+      // vscode://tisepse.quick-clone/clone?url=https://github.com/user/repo.git
       handleUri: (uri) => {
         const url = new URLSearchParams(uri.query).get('url');
         if (uri.path === '/clone' && url) {

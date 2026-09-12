@@ -1,13 +1,30 @@
 {
   "name": "quick-clone",
-  "displayName": "Quick Clone",
+  "displayName": "Quick Clone for Git",
   "description": "Cloner un dépôt Git depuis la barre latérale et l'ouvrir immédiatement, dans une nouvelle fenêtre ou dans le dossier de votre choix.",
-  "version": "0.7.0",
-  "publisher": "local",
+  "version": "0.7.1",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1e1b4b",
+    "theme": "dark"
+  },
+  "keywords": [
+    "git",
+    "clone",
+    "github",
+    "repository",
+    "repo",
+    "sidebar"
+  ],
+  "publisher": "tisepse",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/local/quick-clone.git"
+    "url": "https://github.com/TISEPSE/quick-clone.git"
+  },
+  "homepage": "https://github.com/TISEPSE/quick-clone#readme",
+  "bugs": {
+    "url": "https://github.com/TISEPSE/quick-clone/issues"
   },
   "engines": {
     "vscode": "^1.85.0"
@@ -189,7 +206,7 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "package": "vsce package --allow-missing-repository --skip-license"
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
